@@ -1,8 +1,13 @@
+# IDE
+.idea
+
 # Binaries for programs and plugins
 *.exe
 *.dll
 *.so
 *.dylib
+## *nix and Mac binary
+kube-secrets
 
 # Test binary, build with `go test -c`
 *.test

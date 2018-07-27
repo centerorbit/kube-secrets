@@ -327,17 +327,18 @@ func printUsage() string {
 	var msg string
 
 	msg = fmt.Sprintf("kube-secrets version %s\n\n", VERSION)
-	msg = msg + "Usage: kube-secrets <options> <command> <file>\n"
-	msg = msg + "\nAvailable commands:\n"
-	msg = msg + "   create\t\tCreate new secret file\n"
-	msg = msg + "   delete\t\tRemove key\n"
-	msg = msg + "   help \t\tPrint usage\n"
-	msg = msg + "   keys \t\tList all keys in secret file\n"
-	msg = msg + "   update\t\tUpdate value of key or create new key\n"
-	msg = msg + "   version\t\tPrint version\n\n"
-	msg = msg + "Options:\n"
-	msg = msg + "   -u   \t\tString to set value with\n"
-	msg = msg + "   -U   \t\tFile to set value with\n"
+	msg += "Usage: kube-secrets <options> <command> <file>\n"
+	msg += "\nAvailable commands:\n"
+	msg += "   create\t\tCreate new secret file\n"
+	msg += "   delete\t\tRemove key\n"
+	msg += "   help \t\tPrint this message\n"
+	msg += "   keys \t\tList all keys in secret file\n"
+	msg += "   show \t\tWill display the secret of specified Key\n"
+	msg += "   update\t\tUpdate value of key or create new key\n"
+	msg += "   version\t\tPrint version\n\n"
+	msg += "Options:\n"
+	msg += "   -u   \t\tString to set value with\n"
+	msg += "   -U   \t\tFile to set value with\n"
 
 	return msg
 }
@@ -384,11 +385,6 @@ func parseArgs() (error, string) {
 			
 			return nil, resultString
 
-		case "help":
-			return nil, printUsage()
-		
-			return nil, ""
-
 		case "show":
 			if key == "" {
 				return errors.New(S_MISSING_PARAMETER_KEY), ""
@@ -408,6 +404,8 @@ func parseArgs() (error, string) {
 			fmt.Printf("kube-secrets version %s\n", VERSION)
 			return nil, ""
 
+		case "help":
+			fallthrough
 		default:
 			return nil, printUsage()
 	}
